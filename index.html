@@ -71,7 +71,6 @@
 
         input, select { border: none; width: 100%; box-sizing: border-box; font-size: 16px; font-weight: 700; outline: none; background: transparent; text-align: center; color: inherit; padding: 10px 2px; }
 
-        .row-overdue { background-color: var(--red) !important; color: var(--dark-red) !important; } 
         .row-reserved { background-color: #b3e5fc !important; } 
         .row-partial { background-color: #fff9c4 !important; }  
         .row-active { background-color: #c8e6c9 !important; }   
@@ -287,28 +286,28 @@
         }
     }
 
-    function processRowColors() {
+function processRowColors() {
         for (let i = 1; i < currentData.length; i++) {
             const trF = document.getElementById(`row-f-${i}`);
             const trS = document.getElementById(`row-s-${i}`);
             if(!trF || !trS) continue;
+
             let cls = "";
             const row = currentData[i];
-            const end = parseEliteDate(row[10] || row[9]);
-            if(end && row[2]) {
-                const [h, m] = (row[11] || "00:00").split(':').map(Number);
-                end.setHours(h || 0, m || 0, 0);
-                if(end < officialTime) cls = "row-overdue";
+
+            // Color logic only checks the "Status" column (index 21)
+            if(row[21] === "محجوز") {
+                cls = "row-reserved";
+            } else if(row[21] === "دفع جزئي") {
+                cls = "row-partial";
+            } else if(row[21] === "نشط/مدفوع") {
+                cls = "row-active";
             }
-            if(!cls) {
-                if(row[21] === "محجوز") cls = "row-reserved";
-                else if(row[21] === "دفع جزئي") cls = "row-partial";
-                else if(row[21] === "نشط/مدفوع") cls = "row-active";
-            }
-            trF.className = cls; trS.className = cls;
+
+            trF.className = cls; 
+            trS.className = cls;
         }
     }
-
 async function upd(r, c, v) { 
     currentData[r][c] = v; // Update local data immediately
     updateStatus("جاري الحفظ...", "#f39c12");
