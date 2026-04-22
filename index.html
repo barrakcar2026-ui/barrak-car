@@ -53,6 +53,7 @@
             background: var(--primary); color: white; padding: 12px; 
             border: 1px solid #fff; text-transform: uppercase; font-size: 13px; 
             height: 50px; box-sizing: border-box;
+            direction: ltr;
         }
 
         .fixed-side th {
@@ -65,11 +66,16 @@
             border: 1px solid var(--border-color); padding: 2px; 
             text-align: center; height: 55px; font-size: 16px; font-weight: 700; 
             box-sizing: border-box;
+            direction: ltr;
         }
 
         .fixed-side td { background: var(--light-orange); }
 
-        input, select { border: none; width: 100%; box-sizing: border-box; font-size: 16px; font-weight: 700; outline: none; background: transparent; text-align: center; color: inherit; padding: 10px 2px; }
+        input, select { border: none; width: 100%; box-sizing: border-box;
+                       font-size: 16px; font-weight: 700; outline: none; background: transparent;
+                       text-align: center; color: inherit; padding: 10px 2px;
+                      direction: ltr;
+                      }
 
         .row-reserved { background-color: #b3e5fc !important; } 
         .row-partial { background-color: #fff9c4 !important; }  
